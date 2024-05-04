@@ -17,12 +17,16 @@ export class AppComponent implements OnInit {
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   error: any;
   userData: any;
+  userId:any;
   constructor(private apiService:ServiceService) {}
-  ngOnInit(): void {
+  ngOnInit() {
+   setTimeout(() => {
     this.getUser()
+   }, 400); 
   }
-  getUser(){
-    this.apiService.getAllUser(3).subscribe({
+ getUser(){
+    this.userId= localStorage.getItem('userId');
+    this.apiService.getAllUser( this.userId).subscribe({
       next: (res:any) => {
         this.userData=res.data[0]
         console.log(res.data[0]);

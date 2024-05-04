@@ -1,12 +1,20 @@
 <div class="content">
   <div class="content-display">
-    <p>{{userData?.name}}</p>
+    <p>Hi {{userData?.name}}</p>
     <div class="data-div">{{currentDate}}</div>
     <div class="mood-div">choose your mood</div>
   </div>
-  <div>
-    <div>
-      
-    </div>
+  <div class="smiley-div" >
+    <ng-container *ngFor="let user of moodData; let i = index">
+      <div class="simley-img" (click)="onchange(user?.id, $event)">
+        <div class="img-div">
+          <img [src]="moodImages[i]" alt="">
+        </div>
+        <div>
+          <p>{{user?.mood}}</p>
+        </div>
+      </div>
+    </ng-container>
+
   </div>
 </div>

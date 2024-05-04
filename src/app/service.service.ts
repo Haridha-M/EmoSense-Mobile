@@ -14,4 +14,10 @@ export class ServiceService {
   getAllUser(id:number){
     return this.http.get(`${environment.url}/user/getAllUser/${id}`);
   }
+  getAllMood(){
+    return this.http.get(`${environment.url}/user/getAllMood`);
+  }
+  addMood(data:any){
+    return this.http.post(`${environment.url}/user/addMood`,data);
+  }
 }

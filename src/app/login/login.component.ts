@@ -39,7 +39,7 @@ name: any;
   routeToPage(){
     console.log('kkkkkkkk');
     this.loginToPage()
-    this.router.navigate(['/folder'])
+    this.router.navigate(['/folder/home'])
   }
   loginToPage(){
     const data=this.loginForm.value
@@ -50,7 +50,7 @@ this.apiService.login(data).subscribe({
     console.log('data',data);
     // this.router.navigate(['/home']);
     //stroe token in local storage
-    localStorage.setItem('token',data.token);
+    localStorage.setItem('userId',data.data[0].id);
   },
   error: (err) => {
     console.log('error',err.error);

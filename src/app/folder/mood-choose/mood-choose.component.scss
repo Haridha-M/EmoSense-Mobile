@@ -12,8 +12,33 @@
         justify-content: center;
     }
     .mood-div{
-        margin-top: 28px;
+        margin: 30px 0px;
         display: flex;
         justify-content: center;
+    }
+}
+.smiley-div{
+    
+    padding-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+    .simley-img{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 30%;
+        .img-div{
+
+            display: flex;
+            justify-content: center;
+            img{
+                width: 80px;
+                height: 80px;
+            }
+        }
+        p{
+            text-align: center;
+        }
     }
 }
