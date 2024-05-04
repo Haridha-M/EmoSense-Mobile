@@ -5,7 +5,7 @@ import { FolderPage } from './folder.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'folder',
     component: FolderPage
   }
 ];

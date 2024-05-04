@@ -1,0 +1,23 @@
+.loginImage{
+    img{
+        width: 100%;
+        height: 40vh;
+    }
+}
+.loginFlow{
+    padding-top: 50px !important;
+    padding: 30px;
+    .email-div{
+margin-bottom: 28px;
+    }
+    .password-div{
+        margin-bottom: 28px;
+    }
+    .button{
+        display: flex;
+        justify-content: center
+    }
+}
+.custom-height {
+    height: 36px !important; // Adjust the height as per your requirement
+  }
