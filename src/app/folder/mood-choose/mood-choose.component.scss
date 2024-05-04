@@ -1,0 +1,19 @@
+.content{
+    padding: 30px;
+}
+.content-display{
+    
+    p{
+        display: flex;
+        justify-content: center;
+    }
+    .data-div{
+        display: flex;
+        justify-content: center;
+    }
+    .mood-div{
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+    }
+}
