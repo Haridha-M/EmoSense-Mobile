@@ -119,3 +119,7 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+.custom-toolbar {
+  --background: #67686b; // Custom background color
+  --color:#fff;
+}

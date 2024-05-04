@@ -1,21 +1,23 @@
-<div class="loginImage">
-  <img src="/assets/emoji.png" alt="">
-</div>
-
-<div class="loginFlow">
-  <div class="email-div">
-    <ion-input label="Email" label-placement="stacked" fill="outline" placeholder="example@gmail.com" style="height: 36px;"></ion-input>
+<div>
+  <div class="loginImage">
+    <img src="/assets/emoji.png" alt="">
   </div>
-  <div class="password-div">
-   
-      <ion-input label="Password" label-placement="stacked" fill="outline"  #passwordInput type="{{ passwordFieldType }}" placeholder="Enter Password">
-        <ion-icon name="{{ showPassword ? 'eye' : 'eye-off' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
-      </ion-input>
-
-  </div>
-  <div class="button">
-    <ion-button fill="solid" (click)="routeToPage()">
-      Login
-    </ion-button>
+  
+  <div class="loginFlow">
+    <div class="email-div">
+      <ion-input label="Email" label-placement="stacked" fill="outline" placeholder="example@gmail.com" style="height: 36px;"></ion-input>
+    </div>
+    <div class="password-div">
+     
+        <ion-input label="Password" label-placement="stacked" fill="outline"  #passwordInput type="{{ passwordFieldType }}" placeholder="Enter Password">
+          <ion-icon name="{{ showPassword ? 'eye' : 'eye-off' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
+        </ion-input>
+  
+    </div>
+    <div class="button">
+      <ion-button fill="solid" (click)="routeToPage()">
+        Login
+      </ion-button>
+    </div>
   </div>
 </div>
