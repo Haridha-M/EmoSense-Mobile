@@ -20,4 +20,7 @@ export class ServiceService {
   addMood(data:any){
     return this.http.post(`${environment.url}/user/addMood`,data);
   }
+  getAllMoodStatus(){
+    return this.http.get(`${environment.url}/user/getAllMoodStatus`);
+  }
 }
