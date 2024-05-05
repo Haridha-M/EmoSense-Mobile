@@ -11,15 +11,15 @@ import { ServiceService } from 'src/app/service.service';
 export class HomeComponent  implements OnInit {
   private svg: any;
   private margin = 50;
-  private width = 400;
+  private width = 300;
   private height = 300;
   // The radius of the pie chart is half the smallest side
   private radius = Math.min(this.width, this.height) / 2 - this.margin;
   private colors:any;
   error: any;
-cities: any;
-countries: any;
-  count: any=20;
+  cities: any;
+  countries: any;
+  count: any;
   Happy: any=[];
   Sad: any=[];
   Angry: any=[];
@@ -48,6 +48,7 @@ private data = [
     this.createColors();
     this.drawChart();
     this.getAllMoodStatus()
+    // this.createProgressBarCharts();
   }
   routeToPage(){
     this.router.navigate(['/folder/moodChoose'])
@@ -84,17 +85,26 @@ private data = [
     const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
   
     // Build the pie chart with a ring structure
+    const arcGenerator = d3.arc<any, d3.DefaultArcObject>()
+      .innerRadius(this.radius - 25) // Inner radius (create a ring by setting a value greater than 0)
+      .outerRadius(this.radius);
+  
     this.svg
       .selectAll('pieces')
       .data(pie(this.data))
       .enter()
       .append('path')
-      .attr('d', d3.arc()
-        .innerRadius(this.radius - 25) // Inner radius (create a ring by setting a value greater than 0)
-        .outerRadius(this.radius)
-      )
+      .attr('d', (d: any) => arcGenerator(d))
       .attr('fill', (d: any, i: any) => this.colors(d.data.id.toString()))
-      .style("stroke-width", "1px");
+      .style("stroke-width", "1px")
+      .transition() // Add transition for animation
+      .duration(1000) // Set duration for the animation in milliseconds
+      .attrTween('d', function(d: any) {
+        const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+        return function(t: any) {
+          return arcGenerator(interpolate(t));
+        };
+      });
   
     // Display count at the center of the pie chart
     this.svg.append('text')
@@ -102,7 +112,7 @@ private data = [
       .attr('dominant-baseline', 'middle')
       .style('font-size', '50px')
       .style('font-weight', 'bold')
-      // .text(this.count);
+      .text(this.count);
   
     // Add labels
     const labelLocation = d3.arc()
@@ -116,8 +126,14 @@ private data = [
       .append('text')
       .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
       .style("text-anchor", "middle")
-      .style("font-size", 15);
+      .style("font-size", 15)
+      .text((d: any) => d.data.label)
+      .transition() // Add transition for animation
+      .delay(1000) // Delay the label animation to start after the path animation
+      .styleTween('opacity', function() { return d3.interpolate(0, 1); }); // Tween the opacity from 0 to 1
   }
+  
+  
   getAllMoodStatus(){
     this.apiService.getAllMoodStatus().subscribe({
       next: (res:any) => {
@@ -142,10 +158,11 @@ this.data[5].Stars = this.Confused;
 this.data[6].Stars = this.Calm;
 this.data[7].Stars = this.Tired;
 this.data[8].Stars = this.Disappointed;
-
+this.count=this.Happy+this.Sad+this.Angry+this.Excited+this.Bored+this.Confused+this.Calm+this.Tired+this.Disappointed
         // this.router.navigate(['/home']);
         //stroe token in local storage
         this.drawChart();
+        this.createProgressBarCharts()
       },
       error: (err) => {
         console.log('error',err.error);
@@ -153,5 +170,101 @@ this.data[8].Stars = this.Disappointed;
       }
     });
   }
+  private createProgressBarCharts(): void {
+    const data = [
+      { label: 'Happy', value: Math.min(this.Happy, 30), color: "#57A241" },
+      { label: 'Sad', value: Math.min(this.Sad, 30), color: "#99C530" },
+      { label: 'Angry', value: Math.min(this.Angry, 30), color: "#EEBC0F" },
+      { label: 'Excited', value: Math.min(this.Excited, 30), color: "#EE9143" },
+      { label: 'Bored', value: Math.min(this.Bored, 30), color: "#E75563" },
+      { label: 'Confused', value: Math.min(this.Confused, 30), color: "#E7679E" },
+      { label: 'Calm', value: Math.min(this.Calm, 30), color: "#CA7FC2" },
+      { label: 'Tired', value: Math.min(this.Tired, 30), color: "#6271C2" },
+      { label: 'Disappointed', value: Math.min(this.Disappointed, 30), color: "#6DD6CB" }
+    ];
+    const containerIdPrefix = 'progress-bar'; // Prefix for container IDs
+    const numCharts = 9; // Number of progress bar charts
+    const width = 330;
+    const height = 25; // Increased height to accommodate labels and percentages
+    const strokeWidth = 2; // Adjust as needed
+    const borderRadius = 10; // Border radius for outline
+    const textOffset = 5; // Offset for text elements
+    
+    for (let i = 0; i < numCharts; i++) {
+      const containerId = `${containerIdPrefix}-${i + 1}`;
+      
+      // Calculate percentage, treating values above 30 as 100%
+      const percentage = data[i].value <= 30 ? (data[i].value / 30) * 100 : 100;
+      
+      // Create SVG element
+      const svg = d3.select(`#process`)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+    
+      // Create a linear scale for the progress
+      const xScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range([strokeWidth, width - strokeWidth]);
+    
+      // Create group for the progress bar
+      const barGroup = svg.append('g');
+    
+      // Append background rectangle for the progress bar with border radius
+      barGroup.append('rect')
+        .attr('x', strokeWidth)
+        .attr('y', strokeWidth)
+        .attr('width', width - 2 * strokeWidth)
+        .attr('height', height - 2 * strokeWidth)
+        .attr('rx', borderRadius) // Border radius for x-axis
+        .attr('ry', borderRadius) // Border radius for y-axis
+        .attr('fill', 'none')
+        .attr('stroke', 'black')
+        .attr('stroke-width', strokeWidth);
+    
+      // Append rectangle for the filled part of the progress bar with specified color and border radius
+      barGroup.append('rect')
+        .attr('x', strokeWidth)
+        .attr('y', strokeWidth)
+        .attr('height', height - 2 * strokeWidth)
+        .attr('fill', data[i].color)
+        .attr('rx', borderRadius) // Border radius for x-axis
+        .attr('ry', borderRadius) // Border radius for y-axis
+        .attr('width', 0)
+        .transition()
+        .duration(1000) // Adjust animation duration as needed
+        .attr('width', xScale(percentage) - strokeWidth);
+    
+      // Append text for label
+      svg.append('text')
+        .attr('x', 0) // Position next to the progress bar with an offset
+        .attr('y', height / 2)
+        .attr('dx', '0.5em')
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'start') // Align to the start of the text
+        .text(data[i].label)
+        .style('fill', 'black')
+        .style('font-size', '14px');
+    
+      // Append text for percentage
+      svg.append('text')
+        .attr('x', width) // Position next to the progress bar with an offset
+        .attr('y', height / 2)
+        .attr('dx', '-0.5em')
+        .attr('dy', '0.35em')
+        .attr('text-anchor', 'end') // Align to the end of the text
+        .text(`${percentage.toFixed(2).replace('.00', '')}%`)
+        .style('fill', 'black')
+        .style('font-size', '14px');
+    }
+  }
   
+  
+  
+  
+  
+  
+  
+  
+
 }

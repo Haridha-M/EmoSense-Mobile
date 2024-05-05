@@ -2,19 +2,19 @@
   <div class="content-display">
     <p>Hi {{userData?.name}}</p>
     <div class="data-div">{{currentDate}}</div>
-    <div class="mood-div">choose your mood</div>
+    <div class="mood-div">Choose Your Mood</div>
   </div>
-  <div class="smiley-div" >
+  <div class="smiley-div">
     <ng-container *ngFor="let user of moodData; let i = index">
       <div class="simley-img" (click)="onchange(user?.id, $event)">
         <div class="img-div">
-          <img [src]="moodImages[i]" alt="">
+          <img [src]="moodImages[i]" [style.width.px]="(i === moodImages.indexOf('/assets/smileys/excited.png')) ? '70' : 'auto'"
+            [style.height.px]="(i === moodImages.indexOf('/assets/smileys/excited.png')) ? '60' : 'auto'" alt="">
         </div>
         <div>
           <p>{{user?.mood}}</p>
         </div>
       </div>
     </ng-container>
-
-  </div>
+  </div> 
 </div>

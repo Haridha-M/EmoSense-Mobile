@@ -18,7 +18,7 @@ export class MoodChooseComponent  implements OnInit {
     '/assets/smileys/excited.png',
     '/assets/smileys/bored.png',
     '/assets/smileys/confused.png',
-    '/assets/smileys/calm.jpg',
+    '/assets/smileys/calm.png',
     '/assets/smileys/tired.png',
     '/assets/smileys/disappointment.png'
   ];

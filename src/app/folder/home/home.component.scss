@@ -1,4 +1,32 @@
-.pieDiagram{
+.chartDiv{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    background-color: #ECE9E0;
+    height:calc(100vh - 56px);
+    .pieDiagram{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 280px;
+    }
+    .processDiagram{
+        display: flex;
+        justify-content: center;
+   
+    }
+    .mood-div{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 28px;
+        .mood-para{
+            font-size: 25px;
+            font-weight: 600;
+        }
+        .track-para{
+            margin-top: 8px;
+            font-size: 18px;    
+        }
+    }
 }
