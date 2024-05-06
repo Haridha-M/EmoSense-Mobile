@@ -1,0 +1,15 @@
+<div class="car-list-div">
+  <div *ngFor="let card of cardList" class="card-list">
+    <div class="plusIcon" >
+      <ion-icon name="add-circle-outline" (click)="addNotes()"></ion-icon>
+    </div>
+    <div class="data-div">
+      <span>{{ card.createdAt }}</span>
+    </div>
+    <div class="img-div">
+      <img [src]="card.moodImage" alt="">
+    </div>
+    <div class="para-content">{{ card.mood }}</div>
+  </div>
+</div>
+

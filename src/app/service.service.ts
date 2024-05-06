@@ -11,6 +11,9 @@ export class ServiceService {
   login(data:any){
     return this.http.post(`${environment.url}/user/login`,data);
   }
+  signUp(data:any){
+    return this.http.post(`${environment.url}/user/signUp`,data);
+  }
   getAllUser(id:number){
     return this.http.get(`${environment.url}/user/getAllUser/${id}`);
   }
@@ -20,7 +23,10 @@ export class ServiceService {
   addMood(data:any){
     return this.http.post(`${environment.url}/user/addMood`,data);
   }
-  getAllMoodStatus(){
-    return this.http.get(`${environment.url}/user/getAllMoodStatus`);
+  getAllMoodStatus(id:any){
+    return this.http.get(`${environment.url}/user/getAllMoodStatus/${id}`);
+  }
+  getCardList(){
+    return this.http.get(`${environment.url}/user/getCardList`);
   }
 }

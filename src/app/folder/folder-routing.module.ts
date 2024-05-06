@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FolderPage } from './folder.page';
 import { MoodChooseComponent } from './mood-choose/mood-choose.component';
+import { CardListComponent } from './card-list/card-list.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path:'moodChoose',
     component:MoodChooseComponent
+
+  },
+  {
+    path:'card-list',
+    component:CardListComponent
 
   }
 ];

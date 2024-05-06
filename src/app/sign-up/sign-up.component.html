@@ -1,14 +1,15 @@
 <div>
   <div class="loginImage">
-    <img src="/assets/emoji.png" alt="">
+    <img src="/assets/signup-image.png" alt="">
   </div>
   
   <div class="loginFlow" [formGroup]="loginForm"> 
-    <!-- <div class="email-div">
-      <ion-input label="Name" formControlName="name" label-placement="stacked" fill="outline" placeholder="Enter name" style="height: 36px;"></ion-input>
-    </div> -->
     <div class="email-div">
-      <ion-input label="Email" formControlName="email" label-placement="stacked" fill="outline" placeholder="example@gmail.com" style="height: 36px;" ></ion-input>
+      <ion-input label="Name" formControlName="name" label-placement="stacked" fill="outline" placeholder="Enter name" style="height: 36px;"></ion-input>
+      <div class="error-div" *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.touched || !loginForm.get('name')?.value)">Name is required</div>
+    </div>
+    <div class="email-div">
+      <ion-input label="Email" formControlName="email" label-placement="stacked" fill="outline" placeholder="example@gmail.com" style="height: 36px;"></ion-input>
       <div class="error-div" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || !loginForm.get('email')?.value)">Email is required</div>
     </div>
     <div class="password-div">
@@ -17,14 +18,15 @@
           <ion-icon name="{{ showPassword ? 'eye' : 'eye-off' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
         </ion-input>
         <div class="error-div" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || !loginForm.get('password')?.value)">Password is required</div>
+  
     </div>
     <div class="button">
       <ion-button fill="solid" (click)="loginToPage()">
-        Login
+        Sign Up
       </ion-button>
     </div>
     <div (click)="moveToSignUp()">
-      <a class="anchorTag">SignUp</a>
+      <a class="anchorTag">Login</a>
     </div>
   </div>
 </div>

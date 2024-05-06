@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from './service.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -7,24 +8,23 @@ import { ServiceService } from './service.service';
 })
 export class AppComponent implements OnInit {
   public appPages = [
-    { title: 'Home', url: 'folder/home', icon: 'mail' },
-    { title: 'Choose Mood', url: '/folder/moodChoose', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Home', url: 'folder/home', icon: 'home' },
+    { title: 'Choose Mood', url: '/folder/moodChoose', icon: 'add-circle' },
+    { title: 'Mood Card', url: '/folder/card-list', icon: 'card' },
+    // { title: 'Signout', url: '/folder/spam', icon: 'exit' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   error: any;
   userData: any;
   userId:any;
-  constructor(private apiService:ServiceService) {}
+  showMenu: boolean = false;
+  constructor(private apiService:ServiceService,private router:Router) {}
   ngOnInit() {
    setTimeout(() => {
-    this.getUser()
-   }, 400); 
+     this.getUser()
+   }, 8000); 
   }
- getUser(){
+  getUser(){
     this.userId= localStorage.getItem('userId');
     this.apiService.getAllUser( this.userId).subscribe({
       next: (res:any) => {
@@ -39,5 +39,11 @@ export class AppComponent implements OnInit {
         this.error = err.error.err;
       }
     });
+  }
+  signout(){
+    this.showMenu = true;
+    localStorage.removeItem('userId')
+    this.router.navigate(['/login'])
+
   }
 }

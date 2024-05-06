@@ -14,13 +14,13 @@ export class MoodChooseComponent  implements OnInit {
   moodImages = [
     '/assets/smileys/happy.png',
     '/assets/smileys/sad.png',
-    '/assets/smileys/anger.png',
+    '/assets/smileys/angry.png',
     '/assets/smileys/excited.png',
     '/assets/smileys/bored.png',
     '/assets/smileys/confused.png',
     '/assets/smileys/calm.png',
     '/assets/smileys/tired.png',
-    '/assets/smileys/disappointment.png'
+    '/assets/smileys/disappointed.png'
   ];
   userId: any;
 
@@ -61,8 +61,8 @@ this.apiService.addMood(payload).subscribe({
 }
 
   getUser(){
-    this.userId= localStorage.getItem('userId');
-    
+
+      this.userId=localStorage.getItem('userId');
    
     this.apiService.getAllUser(this.userId).subscribe({
       next: (res:any) => {

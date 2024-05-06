@@ -40,6 +40,7 @@ private data = [
   {id:8,"Stars":this.Tired,color:"#6271C2"},
   {id:9,"Stars":this.Disappointed,color:"#6DD6CB"},
 ];
+  userId:any  ;
 
   constructor(private router:Router,private apiService:ServiceService) { }
 
@@ -48,6 +49,7 @@ private data = [
     this.createColors();
     this.drawChart();
     this.getAllMoodStatus()
+    
     // this.createProgressBarCharts();
   }
   routeToPage(){
@@ -135,9 +137,11 @@ private data = [
   
   
   getAllMoodStatus(){
-    this.apiService.getAllMoodStatus().subscribe({
+
+    this.userId=localStorage.getItem('userId');
+    this.apiService.getAllMoodStatus(6).subscribe({
       next: (res:any) => {
-        console.log(res);
+        console.log(res,'kkkkk');
 
          this.Happy=res.data.Happy 
          this.Sad=res.data.Sad
