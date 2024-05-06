@@ -3,6 +3,7 @@ import { ServiceService } from 'src/app/service.service';
 import * as moment from 'moment';
 import { ModalController, PickerController } from '@ionic/angular';
 import { NotesComponent } from '../notes/notes.component';
+import { ViewNotesComponent } from '../view-notes/view-notes.component';
 
 @Component({
   selector: 'app-card-list',
@@ -76,6 +77,24 @@ console.log(id,'oooooo');
 
   return await modal.present();
 }
-
+async viewNotes(id:any) {
+  
+    const modal = await this.modalCtrl.create({
+      component: ViewNotesComponent,
+      componentProps: {
+        viewId: id
+      }
+    });
+    
+    modal.onDidDismiss().then((data) => {
+      if (data && data.data) {
+        const notes = data.data;
+        console.log('Notes entered:', notes);
+        // Do something with the notes here
+      }
+    });
+  
+    return await modal.present();
+  }
   
 }

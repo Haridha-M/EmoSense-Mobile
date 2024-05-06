@@ -32,4 +32,7 @@ export class ServiceService {
   addNotes(id:number,data:any){
     return this.http.post(`${environment.url}/user/addNotes/${id}`,data);
   }
+  getNotes(id:any){
+    return this.http.get(`${environment.url}/user/getNotes/${id}`);
+  }
 }

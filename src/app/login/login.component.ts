@@ -33,10 +33,6 @@ showError:boolean=false;
     });
     console.log(this.loginForm,'hhhhhhhh');
   }
-  moveToSignUp(){
-    console.log('inside ')
-    this.router.navigate(['/sign-up'])
-  }
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     this.showPassword = !this.showPassword; // Update showPassword accordingly

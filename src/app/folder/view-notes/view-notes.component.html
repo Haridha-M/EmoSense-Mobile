@@ -1,0 +1,15 @@
+<div class="modal-div">
+  <ion-header>
+    <ion-toolbar color="primary"> <!-- Apply primary color to toolbar -->
+      <ion-title>Notes</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()" color="light">Close</ion-button> <!-- Apply light color to button -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding"> <!-- Add padding to content -->
+    <div class="note-div">
+      {{notes}}
+    </div>
+  </ion-content>
+</div>

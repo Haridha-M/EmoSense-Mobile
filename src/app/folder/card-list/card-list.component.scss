@@ -11,10 +11,11 @@
       width: 45%;
       height: 200px;
       background-color: white;
-      box-shadow: 2px 2px 4px 4px #8ffad6; /* Adjust values as needed */
+      box-shadow: 2px 2px 4px 0px #67686b; /* Adjust values as needed */
   
       .plusIcon {
-        text-align: end;
+        display: flex;
+        justify-content: space-between;
         padding: 10px;
       }
   

@@ -5,6 +5,7 @@ import { FolderPage } from './folder.page';
 import { MoodChooseComponent } from './mood-choose/mood-choose.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { NotesComponent } from './notes/notes.component';
+import { ViewNotesComponent } from './view-notes/view-notes.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path:'notes',
     component:NotesComponent
+  },
+  {
+    path:'view-notes',
+    component:ViewNotesComponent
   }
 ];
 

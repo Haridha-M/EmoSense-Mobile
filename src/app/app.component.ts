@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
     { title: 'Home', url: 'folder/home', icon: 'home' },
     { title: 'Choose Mood', url: '/folder/moodChoose', icon: 'add-circle' },
     { title: 'Mood Card', url: '/folder/card-list', icon: 'card' },
-    // { title: 'Signout', url: '/folder/spam', icon: 'exit' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   error: any;
@@ -22,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
    setTimeout(() => {
      this.getUser()
-   }, 8000); 
+   },9000 ); 
   }
   getUser(){
     this.userId= localStorage.getItem('userId');
