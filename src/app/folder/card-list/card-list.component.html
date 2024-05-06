@@ -1,4 +1,4 @@
-<div class="car-list-div">
+<div class="car-list-div" *ngIf="cardList && cardList.length > 0">
   <div *ngFor="let card of cardList" class="card-list">
     <div class="plusIcon" >
       <ion-icon name="eye" (click)="viewNotes(card.id)"></ion-icon>

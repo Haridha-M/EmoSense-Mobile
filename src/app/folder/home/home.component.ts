@@ -207,7 +207,7 @@ this.count=this.Happy+this.Sad+this.Angry+this.Excited+this.Bored+this.Confused+
       { label: 'Disappointed', value: Math.min(this.Disappointed, 30), color: "#6DD6CB" }
     ];
     const hasData = data.some(item => item.value > 0);
-
+  
     if (!hasData) {
       // If there is no data, exit the function
       return;
@@ -220,75 +220,78 @@ this.count=this.Happy+this.Sad+this.Angry+this.Excited+this.Bored+this.Confused+
     const strokeWidth = 2; // Adjust as needed
     const borderRadius = 10; // Border radius for outline
     const textOffset = 5; // Offset for text elements
-    
-    for (let i = 0; i < numCharts; i++) {
-      const containerId = `${containerIdPrefix}-${i + 1}`;
-      
-      // Calculate percentage, treating values above 30 as 100%
-      const percentage = data[i].value <= 30 ? (data[i].value / 30) * 100 : 100;
-      
-      // Create SVG element
-      const svg = d3.select(`#process`)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height);
-    
-      // Create a linear scale for the progress
-      const xScale = d3.scaleLinear()
-        .domain([0, 100])
-        .range([strokeWidth, width - strokeWidth]);
-    
-      // Create group for the progress bar
-      const barGroup = svg.append('g');
-    
-      // Append background rectangle for the progress bar with border radius
-      barGroup.append('rect')
-        .attr('x', strokeWidth)
-        .attr('y', strokeWidth)
-        .attr('width', width - 2 * strokeWidth)
-        .attr('height', height - 2 * strokeWidth)
-        .attr('rx', borderRadius) // Border radius for x-axis
-        .attr('ry', borderRadius) // Border radius for y-axis
-        .attr('fill', 'none')
-        .attr('stroke', 'black')
-        .attr('stroke-width', strokeWidth);
-    
-      // Append rectangle for the filled part of the progress bar with specified color and border radius
-      barGroup.append('rect')
-        .attr('x', strokeWidth)
-        .attr('y', strokeWidth)
-        .attr('height', height - 2 * strokeWidth)
-        .attr('fill', data[i].color)
-        .attr('rx', borderRadius) // Border radius for x-axis
-        .attr('ry', borderRadius) // Border radius for y-axis
-        .attr('width', 0)
-        .transition()
-        .duration(1000) // Adjust animation duration as needed
-        .attr('width', xScale(percentage) - strokeWidth);
-    
-      // Append text for label
-      svg.append('text')
-        .attr('x', 0) // Position next to the progress bar with an offset
-        .attr('y', height / 2)
-        .attr('dx', '0.5em')
-        .attr('dy', '0.35em')
-        .attr('text-anchor', 'start') // Align to the start of the text
-        .text(data[i].label)
-        .style('fill', 'black')
-        .style('font-size', '14px');
-    
-      // Append text for percentage
-      svg.append('text')
-        .attr('x', width) // Position next to the progress bar with an offset
-        .attr('y', height / 2)
-        .attr('dx', '-0.5em')
-        .attr('dy', '0.35em')
-        .attr('text-anchor', 'end') // Align to the end of the text
-        .text(`${percentage.toFixed(2).replace('.00', '')}%`)
-        .style('fill', 'black')
-        .style('font-size', '14px');
+  
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].value > 0) {
+        const containerId = `${containerIdPrefix}-${i + 1}`;
+  
+        // Calculate percentage, treating values above 30 as 100%
+        const percentage = data[i].value <= 30 ? (data[i].value / 30) * 100 : 100;
+  
+        // Create SVG element
+        const svg = d3.select(`#process`)
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height);
+  
+        // Create a linear scale for the progress
+        const xScale = d3.scaleLinear()
+          .domain([0, 100])
+          .range([strokeWidth, width - strokeWidth]);
+  
+        // Create group for the progress bar
+        const barGroup = svg.append('g');
+  
+        // Append background rectangle for the progress bar with border radius
+        barGroup.append('rect')
+          .attr('x', strokeWidth)
+          .attr('y', strokeWidth)
+          .attr('width', width - 2 * strokeWidth)
+          .attr('height', height - 2 * strokeWidth)
+          .attr('rx', borderRadius) // Border radius for x-axis
+          .attr('ry', borderRadius) // Border radius for y-axis
+          .attr('fill', 'none')
+          .attr('stroke', 'black')
+          .attr('stroke-width', strokeWidth);
+  
+        // Append rectangle for the filled part of the progress bar with specified color and border radius
+        barGroup.append('rect')
+          .attr('x', strokeWidth)
+          .attr('y', strokeWidth)
+          .attr('height', height - 2 * strokeWidth)
+          .attr('fill', data[i].color)
+          .attr('rx', borderRadius) // Border radius for x-axis
+          .attr('ry', borderRadius) // Border radius for y-axis
+          .attr('width', 0)
+          .transition()
+          .duration(1000) // Adjust animation duration as needed
+          .attr('width', xScale(percentage) - strokeWidth);
+  
+        // Append text for label
+        svg.append('text')
+          .attr('x', 0) // Position next to the progress bar with an offset
+          .attr('y', height / 2)
+          .attr('dx', '0.5em')
+          .attr('dy', '0.35em')
+          .attr('text-anchor', 'start') // Align to the start of the text
+          .text(data[i].label)
+          .style('fill', 'black')
+          .style('font-size', '14px');
+  
+        // Append text for percentage
+        svg.append('text')
+          .attr('x', width) // Position next to the progress bar with an offset
+          .attr('y', height / 2)
+          .attr('dx', '-0.5em')
+          .attr('dy', '0.35em')
+          .attr('text-anchor', 'end') // Align to the end of the text
+          .text(`${percentage.toFixed(2).replace('.00', '')}%`)
+          .style('fill', 'black')
+          .style('font-size', '14px');
+      }
     }
   }
+  
   
   
   
