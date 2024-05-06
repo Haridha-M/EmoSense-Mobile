@@ -17,7 +17,6 @@ export class LoginComponent  implements OnInit {
   error: any;
   loginForm:FormGroup
 name: any;
-showError:boolean=false;
 
 
   constructor(private router:Router,private apiService:ServiceService,private fb:FormBuilder) { 
@@ -28,10 +27,7 @@ showError:boolean=false;
   }
 
   ngOnInit() {
-    this.loginForm.valueChanges.subscribe(() => {
-      this.showError = false; // Reset showError when form values change
-    });
-    console.log(this.loginForm,'hhhhhhhh');
+    
   }
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
@@ -62,10 +58,11 @@ showError:boolean=false;
         }
       });
     }else{
-      this.showError=true
       this.loginForm.markAllAsTouched()
     }
   }
-  
+  moveToSignUp(){
+    this.router.navigate(['/sign-up'])
+  }
 
 }
