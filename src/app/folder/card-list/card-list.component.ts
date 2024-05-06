@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/service.service';
 import * as moment from 'moment';
-import { PickerController } from '@ionic/angular';
+import { ModalController, PickerController } from '@ionic/angular';
+import { NotesComponent } from '../notes/notes.component';
 
 @Component({
   selector: 'app-card-list',
@@ -25,7 +26,7 @@ export class CardListComponent  implements OnInit {
     'disappointed': '/assets/smileys/disappointed.png'
   };
 
-  constructor(private apiService:ServiceService,private pickerCtrl: PickerController) { }
+  constructor(private apiService:ServiceService,private pickerCtrl: PickerController,private modalCtrl: ModalController) { }
 
   ngOnInit() {
     console.log('hhhhh');
@@ -41,7 +42,7 @@ export class CardListComponent  implements OnInit {
           console.log('Mood:', e.mood); // Log the mood value
           return {
             ...e,
-            moodImage: this.moodImageMapping[e.mood.toLowerCase()] || '/assets/smileys/default.png',
+            moodImage: this.moodImageMapping[e.mood?.toLowerCase()] || '/assets/smileys/default.png',
             createdAt: moment(e.createdAt).format("DD MMM YYYY") // Default image if mood is not found
           };
         });
@@ -55,46 +56,26 @@ export class CardListComponent  implements OnInit {
       }
     });
   }
-  async addNotes() {
-    const picker = await this.pickerCtrl.create({
-      columns: [
-        {
-          name: 'languages',
-          options: [
-            {
-              text: 'JavaScript',
-              value: 'javascript',
-            },
-            {
-              text: 'TypeScript',
-              value: 'typescript',
-            },
-            {
-              text: 'Rust',
-              value: 'rust',
-            },
-            {
-              text: 'C#',
-              value: 'c#',
-            },
-          ],
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Confirm',
-          handler: (value) => {
-            console.log(`You selected: ${value.languages.value}`);
-          },
-        },
-      ],
-    });
+async addNotes(id:any) {
+console.log(id,'oooooo');
 
-    await picker.present();
+  const modal = await this.modalCtrl.create({
+    component: NotesComponent,
+    componentProps: {
+      id: id
+    }
+  });
+  
+  modal.onDidDismiss().then((data) => {
+    if (data && data.data) {
+      const notes = data.data;
+      console.log('Notes entered:', notes);
+      // Do something with the notes here
+    }
+  });
+
+  return await modal.present();
 }
+
   
 }

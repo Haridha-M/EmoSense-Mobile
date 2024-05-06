@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { MoodChooseComponent } from './mood-choose/mood-choose.component';
 import { CardListComponent } from './card-list/card-list.component';
 import { SharedModule } from 'primeng/api';
+import { NotesComponent } from './notes/notes.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { SharedModule } from 'primeng/api';
     IonicModule,
     FolderPageRoutingModule,SharedModule
   ],
-  declarations: [FolderPage, HomeComponent,MoodChooseComponent,CardListComponent]
+  declarations: [FolderPage, HomeComponent,MoodChooseComponent,CardListComponent,NotesComponent]
 })
 export class FolderPageModule {}

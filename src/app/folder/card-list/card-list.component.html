@@ -1,7 +1,7 @@
 <div class="car-list-div">
   <div *ngFor="let card of cardList" class="card-list">
     <div class="plusIcon" >
-      <ion-icon name="add-circle-outline" (click)="addNotes()"></ion-icon>
+      <ion-icon name="add-circle-outline" (click)="addNotes(card.moodStatusId)"></ion-icon>
     </div>
     <div class="data-div">
       <span>{{ card.createdAt }}</span>

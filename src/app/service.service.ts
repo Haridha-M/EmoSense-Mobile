@@ -29,4 +29,7 @@ export class ServiceService {
   getCardList(){
     return this.http.get(`${environment.url}/user/getCardList`);
   }
+  addNotes(id:number,data:any){
+    return this.http.post(`${environment.url}/user/addNotes/${id}`,data);
+  }
 }

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FolderPage } from './folder.page';
 import { MoodChooseComponent } from './mood-choose/mood-choose.component';
 import { CardListComponent } from './card-list/card-list.component';
+import { NotesComponent } from './notes/notes.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
     path:'card-list',
     component:CardListComponent
 
+  },
+  {
+    path:'notes',
+    component:NotesComponent
   }
 ];
 

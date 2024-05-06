@@ -1,0 +1,15 @@
+<div class="modal-div">
+  <ion-header>
+    <ion-toolbar color="primary"> <!-- Apply primary color to toolbar -->
+      <ion-title>Add Notes</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()" color="light">Close</ion-button> <!-- Apply light color to button -->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding"> <!-- Add padding to content -->
+    <ion-textarea [(ngModel)]="notes" placeholder="Enter notes here..." class="textarea-style"></ion-textarea>
+    <div class="error-div" *ngIf="isNotesEmpty()">Notes are required</div>
+    <ion-button expand="block" (click)="submitNotes()" [disabled]="!isFormValid()" color="primary" class="confirm-button">Confirm</ion-button> <!-- Apply primary color to button and custom class -->
+  </ion-content>
+</div>
