@@ -10,13 +10,13 @@
 <ion-content [fullscreen]="true">
 
   <div id="container">
-   <ng-container *ngIf="folder === 'Home'">
+   <ng-container *ngIf="folder === 'home'">
     <app-home></app-home>
   </ng-container>
-  <ng-container *ngIf="folder === 'Choose Mood'">
+  <ng-container *ngIf="folder === 'moodChoose'">
     <app-mood-choose></app-mood-choose>
   </ng-container>
-  <ng-container *ngIf="folder === 'Mood Card'">
+  <ng-container *ngIf="folder === 'card-list'">
     <app-card-list></app-card-list>
   </ng-container>
   </div>

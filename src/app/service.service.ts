@@ -26,8 +26,8 @@ export class ServiceService {
   getAllMoodStatus(id:any){
     return this.http.get(`${environment.url}/user/getAllMoodStatus/${id}`);
   }
-  getCardList(){
-    return this.http.get(`${environment.url}/user/getCardList`);
+  getCardList(id:number){
+    return this.http.get(`${environment.url}/user/getCardList/${id}`);
   }
   addNotes(id:number,data:any){
     return this.http.post(`${environment.url}/user/addNotes/${id}`,data);

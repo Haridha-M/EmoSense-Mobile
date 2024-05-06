@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from './service.service';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,12 +17,11 @@ export class AppComponent implements OnInit {
   error: any;
   userData: any;
   userId:any;
-  showMenu: boolean = false;
-  constructor(private apiService:ServiceService,private router:Router) {}
+  constructor(private apiService:ServiceService,private router:Router,private menuController: MenuController ) {}
   ngOnInit() {
    setTimeout(() => {
      this.getUser()
-   },9000 ); 
+   },2000 ); 
   }
   getUser(){
     this.userId= localStorage.getItem('userId');
@@ -40,9 +40,8 @@ export class AppComponent implements OnInit {
     });
   }
   signout(){
-    this.showMenu = true;
     localStorage.removeItem('userId')
     this.router.navigate(['/login'])
-
+    this.menuController.close();
   }
 }

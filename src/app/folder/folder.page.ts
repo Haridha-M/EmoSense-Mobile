@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { ServiceService } from '../service.service';
 
 @Component({
   selector: 'app-folder',
@@ -10,21 +11,30 @@ import { AppComponent } from '../app.component';
 export class FolderPage implements OnInit {
   public folder!: any;
   private activatedRoute = inject(ActivatedRoute);
-  constructor(private appComponent: AppComponent) {}
+  userId: any;
+  userData: any;
+  error: any;
+  constructor(private appComponent: AppComponent,private apiService:ServiceService) {}
 
   ngOnInit() {
-    // Assuming 'id' is the parameter name for your folder page
-    const id:any = this.activatedRoute.snapshot.paramMap.get('id');
-
-    // Find the page object with the corresponding URL
-    const page = this.appComponent.appPages.find(page => page.url.includes(id));
-
-    // If the page is found, set the folder to its title
-    if (page) {
-      this.folder = page.title;
-    } else {
-      // Handle the case where the page is not found
-      console.error(`Page with URL '${id}' not found.`);
-    }
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.folder = id;
+  }
+  getUser(){
+    this.userId= localStorage.getItem('userId');
+    this.apiService.getAllUser( this.userId).subscribe({
+      next: (res:any) => {
+        this.userData=res.data[0]
+        console.log(res.data[0]);
+        
+        // this.router.navigate(['/home']);
+        //stroe token in local storage
+      },
+      error: (err) => {
+        console.log('error',err.error);
+        this.error = err.error.err;
+      }
+    });
   }
 }
+

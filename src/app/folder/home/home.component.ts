@@ -81,65 +81,84 @@ private data = [
   // ...
   
   private drawChart(): void {
-    // Compute the position of each group on the pie:
-  
-    // Build the pie chart with a ring structure
-    const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
-  
-    // Build the pie chart with a ring structure
-    const arcGenerator = d3.arc<any, d3.DefaultArcObject>()
-      .innerRadius(this.radius - 25) // Inner radius (create a ring by setting a value greater than 0)
-      .outerRadius(this.radius);
-  
-    this.svg
-      .selectAll('pieces')
-      .data(pie(this.data))
-      .enter()
-      .append('path')
-      .attr('d', (d: any) => arcGenerator(d))
-      .attr('fill', (d: any, i: any) => this.colors(d.data.id.toString()))
-      .style("stroke-width", "1px")
-      .transition() // Add transition for animation
-      .duration(1000) // Set duration for the animation in milliseconds
-      .attrTween('d', function(d: any) {
-        const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-        return function(t: any) {
-          return arcGenerator(interpolate(t));
-        };
-      });
-  
-    // Display count at the center of the pie chart
-    this.svg.append('text')
+    const sumOfValues = Object.values(this.data).reduce((acc, curr) => acc + Number(curr.Stars), 0);
+    if (sumOfValues === 0) {
+      this.svg.selectAll("*").remove();
+      this.svg.append('text')
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
-      .style('font-size', '50px')
-      .style('font-weight', 'bold')
-      .text(this.count);
-  
-    // Add labels
-    const labelLocation = d3.arc()
-      .innerRadius(this.radius - 40) // Adjust the inner radius for label placement
-      .outerRadius(this.radius);
-  
-    this.svg
-      .selectAll('pieces')
-      .data(pie(this.data))
-      .enter()
-      .append('text')
-      .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", 15)
-      .text((d: any) => d.data.label)
-      .transition() // Add transition for animation
-      .delay(1000) // Delay the label animation to start after the path animation
-      .styleTween('opacity', function() { return d3.interpolate(0, 1); }); // Tween the opacity from 0 to 1
-  }
+      .attr('font-size', '20px')
+      .attr('font-weight', 'bold')
+      .attr('fill', '#67686b')
+      .text('No data found')
+  return;
+        
+    }else{
+
+      
+          // Compute the position of each group on the pie:
+        
+          // Build the pie chart with a ring structure
+          const pie = d3.pie<any>().value((d: any) => Number(d.Stars));
+        
+          // Build the pie chart with a ring structure
+          const arcGenerator = d3.arc<any, d3.DefaultArcObject>()
+            .innerRadius(this.radius - 25) // Inner radius (create a ring by setting a value greater than 0)
+            .outerRadius(this.radius);
+        
+          this.svg
+            .selectAll('pieces')
+            .data(pie(this.data))
+            .enter()
+            .append('path')
+            .attr('d', (d: any) => arcGenerator(d))
+            .attr('fill', (d: any, i: any) => this.colors(d.data.id.toString()))
+            .style("stroke-width", "1px")
+            .transition() // Add transition for animation
+            .duration(1000) // Set duration for the animation in milliseconds
+            .attrTween('d', function(d: any) {
+              const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+              return function(t: any) {
+                return arcGenerator(interpolate(t));
+              };
+            });
+        
+          // Display count at the center of the pie chart
+          this.svg.append('text')
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .style('font-size', '50px')
+            .style('font-weight', 'bold')
+            .text(this.count);
+        
+          // Add labels
+          const labelLocation = d3.arc()
+            .innerRadius(this.radius - 40) // Adjust the inner radius for label placement
+            .outerRadius(this.radius);
+        
+          this.svg
+            .selectAll('pieces')
+            .data(pie(this.data))
+            .enter()
+            .append('text')
+            .attr("transform", (d: any) => "translate(" + labelLocation.centroid(d) + ")")
+            .style("text-anchor", "middle")
+            .style("font-size", 15)
+            .text((d: any) => d.data.label)
+            .transition() // Add transition for animation
+            .delay(1000) // Delay the label animation to start after the path animation
+            .styleTween('opacity', function() { return d3.interpolate(0, 1); }); // Tween the opacity from 0 to 1
+    }
+
+
+}
+
   
   
   getAllMoodStatus(){
 
     this.userId=localStorage.getItem('userId');
-    this.apiService.getAllMoodStatus(6).subscribe({
+    this.apiService.getAllMoodStatus(this.userId).subscribe({
       next: (res:any) => {
         console.log(res,'kkkkk');
 
@@ -165,6 +184,7 @@ this.data[8].Stars = this.Disappointed;
 this.count=this.Happy+this.Sad+this.Angry+this.Excited+this.Bored+this.Confused+this.Calm+this.Tired+this.Disappointed
         // this.router.navigate(['/home']);
         //stroe token in local storage
+        this.svg.selectAll("*").remove();
         this.drawChart();
         this.createProgressBarCharts()
       },
@@ -186,6 +206,13 @@ this.count=this.Happy+this.Sad+this.Angry+this.Excited+this.Bored+this.Confused+
       { label: 'Tired', value: Math.min(this.Tired, 30), color: "#6271C2" },
       { label: 'Disappointed', value: Math.min(this.Disappointed, 30), color: "#6DD6CB" }
     ];
+    const hasData = data.some(item => item.value > 0);
+
+    if (!hasData) {
+      // If there is no data, exit the function
+      return;
+    }
+  
     const containerIdPrefix = 'progress-bar'; // Prefix for container IDs
     const numCharts = 9; // Number of progress bar charts
     const width = 330;

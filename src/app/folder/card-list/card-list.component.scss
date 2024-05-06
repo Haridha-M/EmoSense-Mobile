@@ -4,6 +4,7 @@
     gap: 20px;
     padding: 28px;
     background-color: #E0E4CF;
+    height:auto;
     .card-list {
       display: flex;
       flex-direction: column;
@@ -11,7 +12,7 @@
       width: 45%;
       height: 200px;
       background-color: white;
-      box-shadow: 2px 2px 4px 0px #67686b; /* Adjust values as needed */
+      box-shadow: 2px 2px 4px 2px #67686b; /* Adjust values as needed */
   
       .plusIcon {
         display: flex;

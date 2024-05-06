@@ -6,18 +6,18 @@
   <div class="loginFlow" [formGroup]="loginForm"> 
     <div class="email-div">
       <ion-input label="Name" formControlName="name" label-placement="stacked" fill="outline" placeholder="Enter name" style="height: 36px;"></ion-input>
-      <div class="error-div" *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.touched)">Name is required</div>
+      <div class="error-div" *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.touched || loginForm.get('name')?.dirty)">Name is required</div>
     </div>
     <div class="email-div">
       <ion-input label="Email" formControlName="email" label-placement="stacked" fill="outline" placeholder="example@gmail.com" style="height: 36px;"></ion-input>
-      <div class="error-div" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched)">Email is required</div>
+      <div class="error-div" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">Email is required</div>
     </div>
     <div class="password-div">
      
         <ion-input label="Password" formControlName="password" label-placement="stacked" fill="outline"  #passwordInput type="{{ passwordFieldType }}" placeholder="Enter Password">
           <ion-icon name="{{ showPassword ? 'eye' : 'eye-off' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
         </ion-input>
-        <div class="error-div" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched)">Password is required</div>
+        <div class="error-div" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">Password is required</div>
   
     </div>
     <div class="button">

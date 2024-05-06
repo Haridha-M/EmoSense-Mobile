@@ -15,6 +15,7 @@ export class CardListComponent  implements OnInit {
   formattedData: any;
   cardList: any[] = []; // Assuming cardList is of type array
   visible: boolean = false;
+  userId:any;
   moodImageMapping: { [key: string]: string } = {
     'happy': '/assets/smileys/happy.png',
     'sad': '/assets/smileys/sad.png',
@@ -35,7 +36,8 @@ export class CardListComponent  implements OnInit {
   }
  
   getCardList() {
-    this.apiService.getCardList().subscribe({
+    this.userId = localStorage.getItem('userId');
+    this.apiService.getCardList(this.userId).subscribe({
       next: (res: any) => {
         console.log('Response:', res);
         // Create a new array with modified createdAt field

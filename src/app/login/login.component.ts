@@ -48,7 +48,7 @@ name: any;
           // Store token in local storage
           localStorage.setItem('userId', data.data[0].id);
           console.log(localStorage.getItem('userId'), 'gggggggg'); 
-          this.router.navigate(['/folder/home'])
+          this.router.navigate(['/folder/moodChoose'])
           this.loginForm.reset()
           
         },
